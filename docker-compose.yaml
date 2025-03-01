@@ -1,0 +1,40 @@
+name: crewmeister
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: crewneisterchallenge
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: dev
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_USER: docker-user
+      MYSQL_PASSWORD: docker-pw
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0 --skip-host-cache --skip-name-resolve
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  app:
+    image: crewmeister-challenge-app
+    container_name: crewmeister-challenge-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - DOCKER_BUILDKIT=1
+    environment:
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: dev
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/crewneisterchallenge?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_WRITER_URL: jdbc:mysql://host.docker.internal:3306/crewneisterchallenge?createDatabaseIfNotExist=true
+      SPRING_FLYWAY_ENABLED: "true"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-db
+
+volumes:
+  mysql_data:

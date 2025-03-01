@@ -1,0 +1,40 @@
+# Build Outputs
+**/target/
+*.jar
+
+# IDE & Editor Artifacts
+**/.idea/
+**/.vscode/
+**/.settings/
+*.iml
+*.ipr
+*.iws
+
+# Version Control
+**/.git/
+**/.gitignore
+**/.gitattributes
+
+# Environment/Secret Files
+**/.env
+**/secrets.*
+
+# Docker Files
+Dockerfile
+docker-compose*.yml
+
+# Logs & Temp Files
+*.log
+logs/
+tmp/
+
+# Documentation
+README.md
+CHANGELOG.md
+docs/
+
+# Miscellaneous
+**/*.swp
+**/.DS_Store
+**/.classpath
+**/*.bak
