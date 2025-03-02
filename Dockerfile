@@ -16,7 +16,7 @@ RUN --mount=type=cache,target=/root/.m2 \
 # ==============================
 FROM amazoncorretto:17-alpine
 
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup 
 USER appuser
 
 WORKDIR /app
