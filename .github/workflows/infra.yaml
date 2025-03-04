@@ -15,7 +15,7 @@ on:
       - "terraform/**"
 env:
   TF_VAR_FILE: "envs/cm-challenge-dev-eu-c1.tfvars"
-  TF_DIR: terraform
+  TF_DIR: terraform/stacks/crewmeister-challenge
 jobs:
   terraform:
     name: Terraform Pipeline
@@ -45,8 +45,6 @@ jobs:
       - name: Terraform Plan
         working-directory: ${{ env.TF_DIR }}
         run: |
-          pwd
-          ls -l
           terraform plan -out=plan.cache -var-file=${{ env.TF_VAR_FILE }}
           terraform show --json plan.cache | tee plan.json
 
