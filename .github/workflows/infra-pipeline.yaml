@@ -1,16 +1,14 @@
-name: Terraform
+name: Terraform Pipeline
 
 on:
   push:
     branches:
       - main
-      - dev
     paths:
       - "terraform/**"
   pull_request:
     branches:
       - main
-      - dev
     paths:
       - "terraform/**"
 env:
