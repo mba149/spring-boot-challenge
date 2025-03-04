@@ -11,3 +11,9 @@ resources:
   requests:
     cpu: 100m
     memory: 512Mi
+
+config:
+  create: true
+  name: crewmeister-challenge
+  data:
+    SPRING_FLYWAY_ENABLED: "true"

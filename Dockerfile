@@ -17,11 +17,16 @@ RUN --mount=type=cache,target=/root/.m2 \
 FROM amazoncorretto:17-alpine
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup 
-USER appuser
 
 WORKDIR /app
-COPY --from=build-base /app/target/*.jar app.jar
+COPY --from=build-base /app/target/*.jar /app.jar
+COPY scripts/docker/entrypoint.sh /entrypoint.sh
+RUN chown appuser:appgroup /entrypoint.sh && chmod +x /entrypoint.sh
+
+USER appuser
 EXPOSE 8080
-# enable limits and limit memory to 75%
+
+# Enable limits and limit memory to 75%
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75"
-CMD ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+
+ENTRYPOINT ["/entrypoint.sh"]
