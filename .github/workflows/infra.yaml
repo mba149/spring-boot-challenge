@@ -63,5 +63,5 @@ jobs:
 
       - name: Terraform Apply (Only on Main Branch)
         working-directory: ${{ env.TF_DIR }}
-        if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve plan.cache
+        if: github.ref == 'refs/heads/dev'
+        run: terraform apply plan.cache
