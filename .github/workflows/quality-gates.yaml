@@ -3,7 +3,7 @@ name: Quality Gates
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   # Linting with Checkstyle
