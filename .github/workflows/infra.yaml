@@ -50,10 +50,9 @@ jobs:
 
       - name: Upload Terraform Plan JSON
         uses: actions/upload-artifact@v4
-        working-directory: ${{ env.TF_DIR }}
         with:
           name: terraform-plan-json
-          path: plan.json
+          path: ${{ env.TF_DIR }}/plan.json
 
       - name: Terraform Apply (Only on Main Branch)
         working-directory: ${{ env.TF_DIR }}
