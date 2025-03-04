@@ -1,7 +1,7 @@
-app_name                        = "cm-challenge"
-env                             = "dev"
-aws_region                      = "eu-central-1"
-vpc_cidr_block                  = "10.0.0.0/16"
+app_name       = "cm-challenge"
+env            = "dev"
+aws_region     = "eu-central-1"
+vpc_cidr_block = "10.0.0.0/16"
 
 #ECR
 ecr_repo_name = "crewmeister-challenge"
