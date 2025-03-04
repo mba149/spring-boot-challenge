@@ -31,3 +31,14 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Ignore Terraform crash logs
+crash.log
+
+# Ignore Terraform provider cache
+.terraform/
+.terraform.lock.hcl

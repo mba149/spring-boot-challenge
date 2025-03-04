@@ -110,12 +110,18 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-
 config:
   create: true
   name: crewmeister-challenge
   data: {}
   # SPRING_FLYWAY_ENABLED: "true"
+
+externalSecrets:
+  serviceAccountName: "external-secrets-sa"
+  namespace: "external-secrets"
+  region: eu-central-1
+
+
 
 # Additional volumes on the output Deployment definition.
 volumes: []

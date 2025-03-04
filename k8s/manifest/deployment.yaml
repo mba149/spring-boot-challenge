@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crewmeister-challenge
+  namespace: default
+  labels:
+    app: crewmeister-challenge
+    owner: crewmeister
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crewmeister-challenge
+  template:
+    metadata:
+      labels:
+        app: crewmeister-challenge
+        owner: crewmeister
+    spec:
+      containers:
+        - name: challenge-container
+          image: image:tag
+          imagePullPolicy: IfNotPresent
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 4
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 10
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: crewmeister-challenge
+            - secretRef:
+                name: crewmeister-challenge
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:MaxRAMPercentage=50"
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+      serviceAccountName: crewmeister-challenge

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: crewmeister-challenge
+  namespace: default
+spec:
+  selector:
+    app: crewmeister-challenge
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: httprest

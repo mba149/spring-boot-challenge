@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: crewmeister-challenge
+  namespace: default
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-protocol: http
+    alb.ingress.kubernetes.io/healthcheck-port: httprest
+    alb.ingress.kubernetes.io/healthcheck-path: /actuator/health
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: crewmeister-challenge
+                port:
+                  number: 8080

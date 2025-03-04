@@ -1,0 +1,53 @@
+name: Terraform
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - "terraform/**"
+  pull_request:
+    branches:
+      - main
+      - dev
+    paths:
+      - "terraform/**"
+
+jobs:
+  terraform:
+    name: Terraform Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: latest
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Format Check
+        run: terraform fmt -list=true -write=false -diff=true -check=true -recursive
+
+      - name: Terraform Plan
+        run: |
+          terraform plan -out=plan.cache
+          terraform show --json plan.cache | tee plan.json
+
+      - name: Upload Terraform Plan JSON
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan-json
+          path: plan.json
+
+      - name: Terraform Apply (Only on Main Branch)
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve plan.cache
