@@ -13,7 +13,8 @@ on:
       - dev
     paths:
       - "terraform/**"
-
+env:
+  TF_VAR_FILE: "envs/cm-challenge-dev-eu-c1.tfvars"
 jobs:
   terraform:
     name: Terraform Pipeline
@@ -39,7 +40,7 @@ jobs:
 
       - name: Terraform Plan
         run: |
-          terraform plan -out=plan.cache
+          terraform plan -out=plan.cache -var-file=${{ env.TF_VAR_FILE }}
           terraform show --json plan.cache | tee plan.json
 
       - name: Upload Terraform Plan JSON
