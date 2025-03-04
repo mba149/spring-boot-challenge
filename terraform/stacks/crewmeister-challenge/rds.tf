@@ -109,5 +109,4 @@ module "mysql" {
   username = "root"
 
   tags = local.tags
-
 }
