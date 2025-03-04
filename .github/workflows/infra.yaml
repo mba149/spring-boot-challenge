@@ -45,6 +45,8 @@ jobs:
       - name: Terraform Plan
         working-directory: ${{ env.TF_DIR }}
         run: |
+          pwd
+          ls -l
           terraform plan -out=plan.cache -var-file=${{ env.TF_VAR_FILE }}
           terraform show --json plan.cache | tee plan.json
 
