@@ -1,9 +1,9 @@
 image:
   repository: crewmeister-challenge
-  tag: nok
+  tag: replace-me
 
 serviceAccount:
-  annotations:: {}
+  annotations:: {} # THIS NEEDS TO BE ADDED AFTER INFRA IS DEPlOYED
 
 resources:
   limits:
